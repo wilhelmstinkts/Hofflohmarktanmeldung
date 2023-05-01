@@ -1,0 +1,35 @@
+.stack{
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+.full-width {
+    width: 100%;
+}
+
+form > div {
+    padding: 8px;
+}
+
+form label {
+    font-size: small;
+}
+
+.message {
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px lightgray;
+    padding: 8px;
+}
+
+.errorMessage {
+    background-color: rgb(240, 179, 179);
+}
+
+.successMessage {
+    background-color: #a3b6ca;
+}
