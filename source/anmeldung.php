@@ -1,22 +1,21 @@
-<?php
-    include 'locationResolver/locationResolver.php';
+<?php    
+    include('ort/ort.php');
+    use Ort\Ort as Ort;
 
     if(isset($_POST['FirstName']) && $_POST['FirstName'])
     {
         http_response_code(302);
         $message = urlencode('Du hast ein verbotenes Feld ausgefüllt.');
-        header('Location: index.php?errorMessage=' . $message);
+        header('Ort: index.php?errorMessage=' . $message);
         exit;
     }
 
     $strasse = $_POST['strasse'];
     $hausnummer = $_POST['hausnummer'];
-    $message = urlEncode(getCoordinates($strasse, $hausnummer, apache_request_headers()));
-    // $message = urlEncode(json_encode(apache_request_headers()));
-
+    $ort = Ort::resolve($strasse, $hausnummer, apache_request_headers());
 
     http_response_code(302);
-    // $message = urlencode('Die Anmeldung wurde verarbeitet.');
-    header('Location: index.php?successMessage=' . $message);   
+    $message = urlencode('Die Anmeldung wurde verarbeitet.');
+    header('Ort: index.php?successMessage=' . $message);   
 
 ?>
