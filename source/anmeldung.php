@@ -2,13 +2,13 @@
     include('ort/ort.php');
     include('repositories/ortRepository.php');
     use Ort\Ort as Ort;
-use repositories\OrtRepository;
+    use repositories\OrtRepository;
 
     if(isset($_POST['FirstName']) && $_POST['FirstName'])
     {
         http_response_code(302);
         $message = urlencode('Du hast ein verbotenes Feld ausgefüllt.');
-        header('Ort: index.php?errorMessage=' . $message);
+        header('Location: index.php?errorMessage=' . $message);
         exit;
     }
 
@@ -19,7 +19,5 @@ use repositories\OrtRepository;
     $ortRepository = new OrtRepository($pdo);
     $id = $ortRepository->speichereOrt($ort);
     http_response_code(302);
-    $message = urlencode('Die Anmeldung wurde verarbeitet.' . $id);
-    header('Ort: index.php?successMessage=' . $message);   
-
-?>
+    $message = urlencode("Die Anmeldung wurde verarbeitet. {$id}");
+    header('Location: index.php?successMessage=' . $message);
