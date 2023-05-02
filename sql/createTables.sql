@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS orte (
     strasse mediumtext NOT NULL,
     hausnummer tinytext NOT NULL,
     koordinaten point,    
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE INDEX idx_orte_strasse_hausnummer (strasse(50), hausnummer(10))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS anmeldungen (
@@ -32,5 +33,6 @@ CREATE TABLE IF NOT EXISTS anmeldungen (
     INDEX idx_anmeldungen_ort_id (ort_id),
     FOREIGN KEY (ort_id)
         REFERENCES orte(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE INDEX idx_anmeldungen_absagecode (absagecode(50))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
