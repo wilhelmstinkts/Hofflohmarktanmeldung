@@ -4,8 +4,10 @@ namespace repositories;
 
 use Ort\Ort;
 
-// include('../ort/ort.php');
-// include('../ort/koordinaten.php');
+include_once('connection.php');
+
+// include_once('../ort/ort.php');
+// include_once('../ort/koordinaten.php');
 
 class OrtRepository
 {
@@ -14,6 +16,11 @@ class OrtRepository
     public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
+    }
+
+    public static function getDefault()
+    {
+        return new OrtRepository(Connection::getDefaultConnection());
     }
 
     public function speichereOrt(Ort $ort)

@@ -1,6 +1,6 @@
 <?php
 namespace Ort;
-include('koordinaten.php');
+include_once('koordinaten.php');
 
 class Ort
 {
@@ -22,7 +22,7 @@ class Ort
         $first = json_decode($apiResponse, true)[0];
         $breite = (float) $first['lat'];
         $laenge = (float) $first['lon'];
-        $strasseNormalisiert = explode(',', $first['display_name'])[1];
+        $strasseNormalisiert = trim(explode(',', $first['display_name'])[1]);
         return new Ort($strasseNormalisiert, $hausnummer, new Koordinaten($breite, $laenge));
     }
 

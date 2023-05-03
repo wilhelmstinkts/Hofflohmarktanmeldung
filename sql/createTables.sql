@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS orte (
     UNIQUE INDEX idx_orte_strasse_hausnummer (strasse(50), hausnummer(10))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE IF NOT EXISTS anmeldungen (
+CREATE TABLE IF NOT EXISTS teilnahmen (
     id INTEGER NOT NULL AUTO_INCREMENT,
     termin_id INTEGER NOT NULL,
     ort_id INTEGER NOT NULL,
@@ -26,13 +26,15 @@ CREATE TABLE IF NOT EXISTS anmeldungen (
     angemeldet_am DATE NOT NULL,
     abgemeldet_am DATE,
     PRIMARY KEY (id),
-    INDEX idx_anmeldungen_termin_id (termin_id),
+    INDEX idx_teilnahmen_termin_id (termin_id),
     FOREIGN KEY (termin_id)
         REFERENCES termine(id)
         ON DELETE CASCADE,
-    INDEX idx_anmeldungen_ort_id (ort_id),
+    INDEX idx_teilnahmen_ort_id (ort_id),
     FOREIGN KEY (ort_id)
         REFERENCES orte(id)
         ON DELETE CASCADE,
-    UNIQUE INDEX idx_anmeldungen_absagecode (absagecode(50))
+    UNIQUE INDEX idx_teilnahmen_absagecode (absagecode(50))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+INSERT INTO termine (datum, anmeldeschluss) VALUES ('2023-06-04', '2023-05-21');

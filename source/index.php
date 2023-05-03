@@ -46,7 +46,7 @@
         </div>
         <div><input required type="checkbox" name="dsgvo" id="dsgvo" aria-invalid="false"><label for="dsgvo">Ich bin damit einverstanden, dass meine eingegebenen Daten an die Initiative Wilhelm gibt keine Ruh gesendet werden, sowie für diesen Hofflohmarkt und Zukünftige gespeichert werden.</label>
         </div>
-
+        <input type="hidden" name="termin_id" value="1" />
         <div><input type="submit" value="Anmelden" />
         </div>
     </form>
