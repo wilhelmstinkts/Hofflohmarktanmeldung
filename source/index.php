@@ -50,12 +50,12 @@ $anmeldungen = $teilnahmeRepository->getAnmeldungenFuerTermin(1);
             <label for="email">E-Mail</label>
             <input required id="email" type="email" name="email" placeholder="max.mustermann@post.de" />
         </div>
-        <div class="horizontal full-width">
-            <div class="stack full-width">
+        <div class="horizontal">
+            <div class="stack" style="flex:2;">
                 <label for="strasse">Straße</label>
                 <input required minlength="5" type="text" id="strasse" name="strasse" placeholder="Hauptstraße" />
             </div>
-            <div class="stack full-width">
+            <div class="stack" style="flex:1;">
                 <label for="hausnummer">Hausnummer</label>
                 <input required minlength="1" type="text" id="hausnummer" name="hausnummer" placeholder="1" />
             </div>
