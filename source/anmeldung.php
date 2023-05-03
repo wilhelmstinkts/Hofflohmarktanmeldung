@@ -3,6 +3,7 @@
     include_once('repositories/ortRepository.php');
     include_once('repositories/teilnahmeRepository.php');
     include_once('mail/mailer.php');
+    include_once('env.php');
 
 use Mail\Mailer;
 use Ort\Ort as Ort;

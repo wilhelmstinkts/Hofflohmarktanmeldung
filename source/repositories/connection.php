@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 namespace repositories;
+
+use Environment\Environment;
 use Exception;
 
 
@@ -15,8 +17,8 @@ final class Connection
     {
 
         if (self::$instance === null) {
-
-            self::$instance = new \PDO('mysql:dbname=d03ce714;host=mysql', 'root', 'totallyunsafe', array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+            $dbSettings = Environment::$dbSettings;
+            self::$instance = new \PDO("mysql:dbname={$dbSettings['db']};host={$dbSettings['host']}", $dbSettings['user'], $dbSettings['password'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
         }
 
 

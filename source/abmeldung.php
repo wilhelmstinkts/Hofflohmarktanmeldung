@@ -1,10 +1,8 @@
 <?php
 
 use repositories\TeilnahmeRepository;
-
+include_once('env.php');
 include_once('repositories/teilnahmeRepository.php');
-
-
 
 if (isset($_POST['code'])) {
     $teilnahmeRepo = TeilnahmeRepository::getDefault();

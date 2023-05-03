@@ -4,6 +4,7 @@ use repositories\TeilnahmeRepository;
 
 include_once('repositories/teilnahmeRepository.php');
 include_once('ort/ort.php');
+include_once('env.php');
 $teilnahmeRepository = TeilnahmeRepository::getDefault();
 $anmeldungen = $teilnahmeRepository->getAnmeldungenFuerTermin(1);
 ?>
