@@ -6,8 +6,7 @@ include_once('repositories/teilnahmeRepository.php');
 
 
 
-if(isset($_POST['code']))
-{
+if (isset($_POST['code'])) {
     $teilnahmeRepo = TeilnahmeRepository::getDefault();
     $teilnahmeRepo->abmelden($_POST['code']);
     http_response_code(302);
@@ -16,31 +15,28 @@ if(isset($_POST['code']))
     exit;
 }
 
-if(!isset($_GET['code']))
-{
+if (!isset($_GET['code'])) {
     http_response_code(400);
-    echo('Der QueryParameter "code" fehlt');
+    echo ('Der QueryParameter "code" fehlt');
     exit;
 }
+?>
+<html>
 
-echo <<<EOD
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Abmeldung Hofflohmarkt</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        <link rel="stylesheet" href="style/style.css">
-    </head>
-    <body>
-        <form method="post">
-            <input type="hidden" name="code" value="{$_GET['code']}" />
-            <input type="submit" value="Abmelden" />
-        </form>
-    </body>
-    </html>
-EOD;
+<head>
+    <meta charset="utf-8">
+    <title>Abmeldung Hofflohmarkt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="style/style.css">
+</head>
 
+<body>
+    <form method="post">
+        <input type="hidden" name="code" value="<? echo $_GET['code'] ?>" />
+        <input type="submit" value="Abmelden" />
+    </form>
+</body>
 
-
+</html>
