@@ -3,13 +3,31 @@
     padding: 8px;
 }
 
-#attribution
-{
-    padding: 0px;
+#mapAttribution {
     font-size: smaller;
 }
 
-.stack{
+.mapAttribution {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.mapAttribution > * {
+    padding: 0px;
+    margin: 0px;
+}
+
+.mapAttribution button {
+    display: none;
+}
+
+.mapAttribution ul {
+    list-style-type: none;
+}
+
+.stack {
     display: flex;
     flex-direction: column;
 }
@@ -21,7 +39,7 @@
     justify-content: space-between;
 }
 
-form > div {
+form>div {
     padding: 8px;
 }
 

@@ -35,6 +35,7 @@ export const drawMap = ({ containerId, attributionId, markers }: { containerId: 
                 new Rotate({}),
                 new Attribution({
                     target: attributionId,
+                    className: 'mapAttribution'
                 }),
                 new Zoom()                
             ]

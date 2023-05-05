@@ -30,7 +30,7 @@ if(count($anmeldungen) > 0)
     </script>
 </head>
 
-<body onload='drawMap({containerId: "karte", attributionId: "attribution", markers: <? echo $markers; ?>})'>
+<body onload='drawMap({containerId: "karte", attributionId: "mapAttribution", markers: <? echo $markers; ?>})'>
 
     <?
     if (isset($_GET['successMessage'])) {
@@ -44,7 +44,7 @@ if(count($anmeldungen) > 0)
     ?>
     <h1>Teilnehmende Höfe</h1>
     <div id="karte"></div>
-    <div id="attribution"></div>
+    <div id="mapAttribution"></div>
     <?
     if (count($anmeldungen) == 0) {
         echo ('Noch keine Anmeldungen für den nächsten Termin');
