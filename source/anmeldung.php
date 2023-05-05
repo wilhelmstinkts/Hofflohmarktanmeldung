@@ -31,5 +31,6 @@ use Ort\Ort as Ort;
     Mailer::sendeAnmeldeBestaetigung($_POST['email'], $absageCode);
 
     http_response_code(302);
-    $message = urlencode("Die Anmeldung wurde verarbeitet.");
+
+    $message = urlencode("<p>Die Anmeldung wurde verarbeitet. Schön, dass Ihr Hof dabei ist!</p><p>Eine Bestätigungs-E-Mail wurde an {$_POST['email']} gesendet. Dort finden Sie einen Link zur Absage, falls es nötig werden sollte. Bitte schauen Sie ggf. im Spam-Ordner nach.");
     header('Location: index.php?successMessage=' . $message);
