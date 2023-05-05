@@ -1,13 +1,20 @@
 <?php
 
 use repositories\TeilnahmeRepository;
+use Ort\Ort;
 
 include_once('repositories/teilnahmeRepository.php');
 include_once('ort/ort.php');
 include_once('env.php');
 $teilnahmeRepository = TeilnahmeRepository::getDefault();
 $anmeldungen = $teilnahmeRepository->getAnmeldungenFuerTermin(1);
+$markers = '[]';
+if(count($anmeldungen) > 0)
+{
+    $markers = json_encode(array_map(fn (Ort $anmeldung) => array('lat' => $anmeldung->koordinaten->breite, 'lon' => $anmeldung->koordinaten->laenge), $anmeldungen));
+}
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -17,9 +24,14 @@ $anmeldungen = $teilnahmeRepository->getAnmeldungenFuerTermin(1);
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="module" src="script/script.js">
+        const drawMapWithMarkers = drawMap({containerId: 'karte', attributionId: 'attribution', markers: <? echo $markers; ?>});
+    </script>
 </head>
 
-<body>
+<body onload='drawMap({containerId: "karte", attributionId: "attribution", markers: <? echo $markers; ?>})'>
+
     <?
     if (isset($_GET['successMessage'])) {
         echo '<div class="message successMessage">' . urldecode($_GET['successMessage']) . '</div>';
@@ -31,6 +43,8 @@ $anmeldungen = $teilnahmeRepository->getAnmeldungenFuerTermin(1);
 
     ?>
     <h1>Teilnehmende Höfe</h1>
+    <div id="karte"></div>
+    <div id="attribution"></div>
     <?
     if (count($anmeldungen) == 0) {
         echo ('Noch keine Anmeldungen für den nächsten Termin');

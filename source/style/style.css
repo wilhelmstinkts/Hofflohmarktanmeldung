@@ -1,3 +1,14 @@
+#karte {
+    height: 500px;
+    padding: 8px;
+}
+
+#attribution
+{
+    padding: 0px;
+    font-size: smaller;
+}
+
 .stack{
     display: flex;
     flex-direction: column;

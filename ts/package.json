@@ -1,0 +1,18 @@
+{
+  "name": "hofflohmarkt",
+  "version": "0.0.0",
+  "description": "Skripte, die clientseitig laufen",
+  "scripts": {
+    "build": "esbuild index.ts --minify --target=es2020 --bundle  --outfile=../source/script/script.js",
+    "watch": "npm run build -- --watch=forever"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ol": "^7.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.18",
+    "typescript": "^5.0.4"
+  }
+}

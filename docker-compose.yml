@@ -28,3 +28,13 @@ services:
       - ./source:/var/www/html/
     ports:
       - "8080:80"
+
+  node:
+    image: node:18
+    container_name: node
+    volumes:
+      - ./:/cwd
+    working_dir: /cwd/ts
+    command: npm run watch
+    environment:
+      - npm_config_cache=/home/node

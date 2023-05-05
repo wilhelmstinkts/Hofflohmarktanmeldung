@@ -19,6 +19,7 @@ if (!isset($_GET['code'])) {
     exit;
 }
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
