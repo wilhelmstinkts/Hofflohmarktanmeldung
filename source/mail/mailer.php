@@ -7,8 +7,8 @@ class Mailer
     private static function getHeaders()
     {
         return array(
-            'From' => 'Wilhelm Gibt Keine Ruh <no-reply@wilhelm-gibt-keine-ruh.de>',
-            'Reply-To' => 'no-reply@wilhelm-gibt-keine-ruh.de',
+            'From' => 'Hofflohmarkt <hofflohmarkt@wilhelm-gibt-keine-ruh.de>',
+            'Reply-To' => 'hofflohmarkt@wilhelm-gibt-keine-ruh.de',
             'Content-Type' => 'text/html',
             'X-Mailer' => 'PHP/' . phpversion()
         );
