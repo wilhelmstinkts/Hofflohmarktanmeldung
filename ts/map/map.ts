@@ -14,8 +14,8 @@ import Stroke from 'ol/style/Stroke';
 import Rotate from 'ol/control/Rotate';
 import Fill from 'ol/style/Fill';
 
-const wilhelmsruhCenter = { "latitude": 52.5880115, "longitude": 13.3622059 };
-const defaultZoomLevel = 15;
+const mapCenter = { "latitude": 52.5880115, "longitude": 13.367 };
+const defaultZoomLevel = 14.5;
 
 export const drawMap = ({ containerId, attributionId, markers }: { containerId: string, attributionId?: string, markers: { lon: number, lat: number }[] }) => {
     useGeographic();
@@ -28,7 +28,7 @@ export const drawMap = ({ containerId, attributionId, markers }: { containerId: 
                     { source: new OSM() })
             ],
             view: new View({
-                center: [wilhelmsruhCenter.longitude, wilhelmsruhCenter.latitude],
+                center: [mapCenter.longitude, mapCenter.latitude],
                 zoom: defaultZoomLevel
             }),
             controls: [

@@ -49,7 +49,7 @@ if(count($anmeldungen) > 0)
     if (count($anmeldungen) == 0) {
         echo ('Noch keine Anmeldungen für den nächsten Termin');
     } else {
-        echo ('<ol>');
+        echo ('<ol id="anmeldungsliste">');
         foreach ($anmeldungen as $anmeldung) {
             echo ("<li>{$anmeldung->strasse} {$anmeldung->hausnummer}</li>");
         }

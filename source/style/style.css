@@ -1,6 +1,12 @@
 #karte {
-    height: 500px;
+    height: clamp(200px, 500px, 50vh);
     padding: 8px;
+}
+
+@media (orientation: landscape) {
+    #karte {
+        height: clamp(200px, 500px, 60vh);
+    }   
 }
 
 #mapAttribution {
@@ -59,4 +65,8 @@ form label {
 
 .successMessage {
     background-color: #a3b6ca;
+}
+
+#anmeldungsliste {
+    columns: 250px 3;
 }
