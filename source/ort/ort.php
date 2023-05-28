@@ -1,5 +1,7 @@
 <?php
+
 namespace Ort;
+
 include_once('koordinaten.php');
 
 class Ort
@@ -22,8 +24,7 @@ class Ort
         $first = json_decode($apiResponse, true)[0];
         $breite = (float) $first['lat'];
         $laenge = (float) $first['lon'];
-        $strasseNormalisiert = trim(explode(',', $first['display_name'])[1]);
-        return new Ort($strasseNormalisiert, $hausnummer, new Koordinaten($breite, $laenge));
+        return new Ort($strasse, $hausnummer, new Koordinaten($breite, $laenge));
     }
 
     private static function getKoordinaten(string $strasse, string $hausnummer, array $clientHeaders)
