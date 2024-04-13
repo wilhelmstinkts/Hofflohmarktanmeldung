@@ -8,8 +8,7 @@ if (isset($_POST['code'])) {
     $teilnahmeRepo = TeilnahmeRepository::getDefault();
     $teilnahmeRepo->abmelden($_POST['code']);
     http_response_code(302);
-    $message = urlencode("Sie haben Ihre Teilnahme abgesagt.");
-    header('Location: index.php?successMessage=' . $message);
+    header('Location: index.php?successMessage=absage');
     exit;
 }
 
