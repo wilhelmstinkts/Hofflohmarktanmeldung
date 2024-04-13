@@ -74,10 +74,12 @@ if (count($anmeldungen) > 0) {
             foreach ($anmeldungen as $anmeldung) {
                 echo ("<li>{$anmeldung->strasse} {$anmeldung->hausnummer}</li>");
             }
-            echo ('</ol>');
+            echo('</ol>');
+            echo('<button class="noprint" onclick="print()">Drucken/Als Pdf Speichern</button>');
         }
 
         echo (<<<EOD
+            <section id="anmeldung" class="noprint">
             <h1>Anmeldung</h1>
             <form action="anmeldung.php" method="post" aria-label="Anmeldeformular">
                 <div><span style="display:none !important; visibility:hidden !important;"><label for="firstName">Bitte lasse dieses Feld leer.</label><input id="firstName" type="text" name="FirstName" value="" size="40" tabindex="-1" autocomplete="new-password"></span>
@@ -107,6 +109,7 @@ if (count($anmeldungen) > 0) {
                 <div><input type="submit" value="Anmelden" />
                 </div>
             </form>
+            </section>
 
             EOD);
     }

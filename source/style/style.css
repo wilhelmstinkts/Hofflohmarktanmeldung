@@ -9,6 +9,12 @@
     }   
 }
 
+@media print {
+    .noprint {
+        display: none;    
+    }
+}
+
 #mapAttribution {
     font-size: smaller;
 }
