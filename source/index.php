@@ -13,6 +13,7 @@ $teilnahmeRepository = TeilnahmeRepository::getDefault();
 $termin = $terminRepository->getNaechstenTermin();
 
 $anmeldungen = is_null($termin) ? array() : $teilnahmeRepository->getAnmeldungenFuerTermin($termin['id']);
+Ort::sortiere($anmeldungen);
 $markers = '[]';
 if (count($anmeldungen) > 0) {
     $markers = json_encode(array_map(fn (Ort $anmeldung) => array('lat' => $anmeldung->koordinaten->breite, 'lon' => $anmeldung->koordinaten->laenge), $anmeldungen));

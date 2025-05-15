@@ -13,7 +13,8 @@ class Ort
     private static function vereinheitlicheStrasse(string $strasse): string
     {
         $strasse = preg_replace('/\s+/', ' ', $strasse);
-        $strasse = preg_replace('/\s?((str)|(straße)|(strasse))\.?\s*$/i', 'str.', $strasse);
+        $strasse = preg_replace('/(?<!\s)((str)|(straße)|(strasse))\.?\s*$/i', 'str.', $strasse);
+        $strasse = preg_replace('/\s((str)|(straße)|(strasse))\.?\s*$/i', ' Str.', $strasse);
         return trim($strasse);
     }
 
@@ -67,5 +68,23 @@ class Ort
         curl_close($ch);
 
         return $result;
+    }
+
+    public static function sortiere(array &$orte)
+    {
+        usort(
+            $orte,
+            function (Ort $a, Ort $b) {
+                if ($a->strasse == $b->strasse) {
+                    $aZahl = preg_replace('/\D/', '', $a->hausnummer);
+                    $bZahl = preg_replace('/\D/', '', $b->hausnummer);
+                    if ((int) $aZahl - (int) $bZahl == 0) {
+                        return strcmp($a->hausnummer, $b->hausnummer);
+                    }
+                    return (int) $aZahl - (int) $bZahl;
+                }
+                return strcmp($a->strasse, $b->strasse);
+            }
+        );
     }
 }
