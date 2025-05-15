@@ -10,9 +10,16 @@ class Ort
     public string $hausnummer;
     public Koordinaten $koordinaten;
 
+    private static function vereinheitlicheStrasse(string $strasse): string
+    {
+        $strasse = preg_replace('/\s+/', ' ', $strasse);
+        $strasse = preg_replace('/\s?((str)|(straße)|(strasse))\.?\s*$/i', 'str.', $strasse);
+        return trim($strasse);
+    }
+
     public function __construct(string $strasse, string $hausnummer, Koordinaten $koordinaten)
     {
-        $this->strasse = $strasse;
+        $this->strasse = Ort::vereinheitlicheStrasse($strasse);
         $this->hausnummer = $hausnummer;
         $this->koordinaten = $koordinaten;
     }

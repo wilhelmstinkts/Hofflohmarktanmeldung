@@ -1,4 +1,3 @@
-version: "3"
 services:
   mysql:
     image: mysql:5.7.37
@@ -38,3 +37,11 @@ services:
     command: npm run watch
     environment:
       - npm_config_cache=/home/node
+
+  composer:
+    image: composer:2
+    container_name: composer
+    volumes:
+      - ./:/cwd
+    working_dir: /cwd
+    command: composer install && composer dump-autoload
