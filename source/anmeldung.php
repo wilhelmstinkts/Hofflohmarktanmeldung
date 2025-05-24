@@ -19,7 +19,13 @@ use Ort\Ort as Ort;
 
     $strasse = $_POST['strasse'];
     $hausnummer = $_POST['hausnummer'];
+    try{
     $ort = Ort::resolve($strasse, $hausnummer, apache_request_headers());
+    } catch (\Exception $e) {
+        http_response_code(302);
+        header('Location: index.php?errorMessage=koordinatenFehler');
+        exit;
+    }
     
     $ortRepository = OrtRepository::getDefault();
     $ortId = $ortRepository->speichereOrt($ort);

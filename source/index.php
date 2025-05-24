@@ -16,7 +16,7 @@ $anmeldungen = is_null($termin) ? array() : $teilnahmeRepository->getAnmeldungen
 Ort::sortiere($anmeldungen);
 $markers = '[]';
 if (count($anmeldungen) > 0) {
-    $markers = json_encode(array_map(fn (Ort $anmeldung) => array('lat' => $anmeldung->koordinaten->breite, 'lon' => $anmeldung->koordinaten->laenge), $anmeldungen));
+    $markers = json_encode(array_map(fn(Ort $anmeldung) => array('lat' => $anmeldung->koordinaten->breite, 'lon' => $anmeldung->koordinaten->laenge), $anmeldungen));
 }
 ?>
 <!DOCTYPE html>
@@ -43,19 +43,22 @@ if (count($anmeldungen) > 0) {
 
     <?
     if (isset($_GET['successMessage'])) {
-        if($_GET['successMessage'] == 'absage')
-        {
-            echo '<div class="message successMessage">Sie haben Ihre Teilnahme abgesagt.</div>';    
-        }
-        else if ($_GET['successMessage'] == 'anmeldung')
-        {
+        if ($_GET['successMessage'] == 'absage') {
+            echo '<div class="message successMessage">Sie haben Ihre Teilnahme abgesagt.</div>';
+        } else if ($_GET['successMessage'] == 'anmeldung') {
             echo '<div class="message successMessage"><p>Die Anmeldung wurde verarbeitet. Schön, dass Ihr Hof dabei ist!</p><p>Eine Bestätigungs-E-Mail wurde an Ihre E-Mail-Adresse gesendet. Dort finden Sie einen Link zur Absage, falls es nötig werden sollte. Bitte schauen Sie ggf. im Spam-Ordner nach.</p></div>';
-        }        
+        }
     }
 
-    if (isset($_GET['errorMessage']) && $_GET['errorMessage'] == 'verbotenesFeld') {
-        echo '<div class="message errorMessage">Du hast ein verbotenes Feld ausgefüllt.</div>';
+    if (isset($_GET['errorMessage'])) {
+        if ($_GET['errorMessage'] == 'verbotenesFeld') {
+            echo '<div class="message errorMessage">Du hast ein verbotenes Feld ausgefüllt.</div>';
+        }
+        if ($_GET['errorMessage'] == 'koordinatenFehler') {
+            echo '<div class="message errorMessage">Entschuldigung! Die angegebene Adresse konnte nicht auf der Karte eingetragen werden. Bitte prüfen Sie die Adresse oder versuchen Sie es später nochmals.</div>';
+        }
     }
+
 
     ?>
     <?
@@ -75,8 +78,8 @@ if (count($anmeldungen) > 0) {
             foreach ($anmeldungen as $anmeldung) {
                 echo ("<li>{$anmeldung->strasse} {$anmeldung->hausnummer}</li>");
             }
-            echo('</ol>');
-            echo('<button class="noprint" onclick="print()">Drucken/Als Pdf Speichern</button>');
+            echo ('</ol>');
+            echo ('<button class="noprint" onclick="print()">Drucken/Als Pdf Speichern</button>');
         }
 
         echo (<<<EOD

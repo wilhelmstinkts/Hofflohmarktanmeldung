@@ -2,7 +2,12 @@
 
 namespace Ort;
 
+use repositories\OrtRepository;
+use utils\RetryUtils;
+
 include_once('koordinaten.php');
+include_once('koordinaten.php');
+include_once(__DIR__ . '/../utils/withRetry.php');
 
 class Ort
 {
@@ -26,13 +31,27 @@ class Ort
     }
 
 
-    public static function resolve(string $strasse, string $hausnummer, array $clientHeaders)
+    public static function resolve(string $strasseIn, string $hausnummer, array $clientHeaders)
     {
-        $apiResponse = Ort::getKoordinaten($strasse, $hausnummer, $clientHeaders);
-        $first = json_decode($apiResponse, true)[0];
-        $breite = (float) $first['lat'];
-        $laenge = (float) $first['lon'];
-        return new Ort($strasse, $hausnummer, new Koordinaten($breite, $laenge));
+        $strasse = Ort::vereinheitlicheStrasse($strasseIn);
+        $hausnummer = trim($hausnummer);
+        $bekannteKoordinaten = OrtRepository::getDefault()->getGespeicherteKoordinaten($strasse, $hausnummer);
+        if ($bekannteKoordinaten !== null) {            
+            return new Ort($strasse, $hausnummer, $bekannteKoordinaten);
+        }
+        // Früher gab es keine Vereinheitlichung der Straßennamen
+        $bekannteKoordinatenWieGegegeben = OrtRepository::getDefault()->getGespeicherteKoordinaten(
+            trim($strasseIn),
+            $hausnummer
+        );
+        if($bekannteKoordinatenWieGegegeben !== null) {
+            return new Ort($strasseIn, $hausnummer, $bekannteKoordinatenWieGegegeben);
+        }
+        $apiResponse = RetryUtils::withRetry(function () use ($strasse, $hausnummer, $clientHeaders) {
+            return Ort::getKoordinaten($strasse, $hausnummer, $clientHeaders);
+        });
+
+        return new Ort($strasse, $hausnummer, $apiResponse);
     }
 
     private static function getKoordinaten(string $strasse, string $hausnummer, array $clientHeaders)
@@ -67,7 +86,23 @@ class Ort
         }
         curl_close($ch);
 
-        return $result;
+        $errorMessage = 'Koordinaten konnten nicht ermittelt werden. Bitte überprüfe die Adresse oder versuche es später nochmals.';
+
+        if ($result === false) {
+            throw new \Exception($errorMessage);
+        }
+
+        $json = json_decode($result, true);
+        if (count($json) === 0) {
+            throw new \Exception($errorMessage);
+        }
+        $first = $json[0];
+        if (!isset($first['lat']) || !isset($first['lon'])) {
+            throw new \Exception($errorMessage);
+        }
+        $breite = (float) $first['lat'];
+        $laenge = (float) $first['lon'];
+        return new Koordinaten($breite, $laenge);
     }
 
     public static function sortiere(array &$orte)

@@ -2,6 +2,7 @@
 
 namespace repositories;
 
+use Ort\Koordinaten;
 use Ort\Ort;
 
 include_once('connection.php');
@@ -40,5 +41,21 @@ class OrtRepository
             ));
         $id = $getStatement->fetch()['id'];
         return $id;
+    }
+
+    public function getGespeicherteKoordinaten(string $strasse, string $hausnummer): Koordinaten | null
+    {
+        $selectStatement = $this->pdo->prepare("SELECT ST_AsText(koordinaten) AS koordinaten FROM orte WHERE strasse = :strasse AND hausnummer = :hausnummer");
+        $selectStatement->execute(array(
+            ':strasse' => $strasse,
+            ':hausnummer' => $hausnummer
+        ));
+        $result = $selectStatement->fetch();
+        if ($result === false) {
+            return null;
+        }
+        $koordinatenString = $result['koordinaten'];
+        preg_match('/POINT\(([^ ]+) ([^ ]+)\)/', $koordinatenString, $matches);
+        return new Koordinaten((float)$matches[2], (float)$matches[1]);
     }
 }
