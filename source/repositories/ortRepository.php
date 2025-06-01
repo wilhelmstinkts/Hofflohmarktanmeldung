@@ -56,6 +56,6 @@ class OrtRepository
         }
         $koordinatenString = $result['koordinaten'];
         preg_match('/POINT\(([^ ]+) ([^ ]+)\)/', $koordinatenString, $matches);
-        return new Koordinaten((float)$matches[2], (float)$matches[1]);
+        return new Koordinaten((float)$matches[1], (float)$matches[2]);
     }
 }
